@@ -9,7 +9,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <script src="js/jquery-3.1.1.min.js"></script>
-<script src="js/boec/client/register.js"></script>
+<script src="js/boec/client/home.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="css/font-awesome.min.css" />
 <link rel="stylesheet" type="text/css"
@@ -37,15 +37,15 @@
 							<li><a href="#"><i class="fa fa-download"></i>Tải ứng
 									dụng </a></li>
 							<li><a href="#">Chăm sóc khách hàng</a></li>
-							<li><a href="jsp/orderTrace.jsp">Kiểm tra đơn hàng</a></li>
+							<li><a href="<%=request.getContextPath()%>/orderTrace.jsp">Kiểm tra đơn hàng</a></li>
 						</ul>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
 						<ul class="list-inline pull-right">
 <!--                                                    <div class="login"> <a href="/LogoutServlet">Đăng Xuất</a></div>-->
                                                     
-							<li><a href="index.jsp" class="login"><i
-									class="fa fa-user-circle"></i>Đăng xuất</a></li>
+							<li><a href="<%=request.getContextPath()%>/LogoutServlet" class="login"><i
+									class="fa fa-user-circle"></i><%= session.getAttribute("ModeLogin") %></a></li>
 						</ul>
 					</div>
 				</div>
@@ -67,7 +67,7 @@
 								<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 									<div class="cd-dropdown-wrapper">
 										<a class="cd-dropdown-trigger" href="#0"><i
-											class="fa fa-list"></i></a>
+                                                                                        class="fa fa-list" id="showList"></i></a>
 										<nav class="cd-dropdown">
 											<h1 class="home-title hidden-md hidden-lg">Điện tử sáng
 												tạo</h1>
@@ -310,22 +310,25 @@
 					<div class="col-xs-10 col-sm-7 col-md-8 col-lg-8">
 						<div class="search">
 							<div class="input-group">
-								<input type="search" class="form-control"
+                                                          <form method="post"  action="<%=request.getContextPath()%>/SearchServlet" >
+                                                            <input type="text" class="form-control" name="searchName"
 									placeholder="Nhập tên sản phẩm hoặc mã sản phẩm bạn muốn tìm kiếm...">
-								<span class="input-group-btn"> <a
-									href="/serverptit/search">
-										<button class="btn btn-warning" type="button">
+								<span class="input-group-btn">
+                                                                        <button class="btn btn-warning" type="submit">
 											<span class="glyphicon glyphicon-search" aria-hidden="true">
 											</span> Tìm kiếm
-										</button>
-								</a>
+								        </button>
+								
 								</span>
+                                                            </form>
 							</div>
 						</div>
 					</div>
 					<div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
 						<div class="cart pull-right">
-							<a href="/serverptit/giohang"><i class="fa fa-shopping-cart"></i></a>
+                                                        <form method="post"  action="<%=request.getContextPath()%>/CartServlet">
+                                                        <button type="submit"><i class="fa fa-shopping-cart"></i></button>
+                                                        </form>
 						</div>
 					</div>
 				</div>

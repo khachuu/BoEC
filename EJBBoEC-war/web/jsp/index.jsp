@@ -1,12 +1,153 @@
+<%@page import="entities.Image"%>
+<%@page import="dao_impl.ImageDaoImpl"%>
+<%@page import="entities.Products"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%--<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>--%>
-<%@ include file="/jsp/header.jsp"%>
-<!-- end menu-search -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%--<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>--%>
+<%@ include file="header.jsp"%>
+<!-- end menu-search -->
+            <%
+          
+                if (request.getAttribute("productses") != null) {
+                    ArrayList al = (ArrayList) request.getAttribute("productses");
+                
+                
+                }
+                
+                
+            %>
+            
+<!--            <table width="700px" align="center"
+               style="border:1px solid #000000;">
+            <tr>
+                <td colspan=4 align="center"
+                    style="background-color:teal">
+                    <b>User Record</b></td>
+            </tr>
+            <tr style="background-color:lightgrey;">
+                <td><b>User Name</b></td>
+                <td><b>Password</b></td>
+                <td><b>Email</b></td>
+                <td><b>Registration Date</b></td>
+            </tr>-->
+            <div class="product">
+			<h3></h3>
+			<div class="row">
+            <%
+                int count = 0;
+                String color = "#F9EBB3";
+                if (request.getAttribute("productses") != null) {
+                    ArrayList al = (ArrayList) request.getAttribute("productses");
+         
+               ArrayList<Products> productses = al;    
+               Products products = new Products();
+               ImageDaoImpl daoImpl = new ImageDaoImpl();
+               count++;
+               for(int i = 0; i < productses.size(); i++){
+                  ArrayList<Image> image = new ArrayList<Image>();
+                  image = daoImpl.getImageByProductsId(productses.get(i).getId());
+            %>
+            
+<!--            <div class="product">
+			<h3></h3>
+			<div class="row">-->
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
+					<div class="qh-pro-item">
+						<!--<a href="single.jsp">-->
+							<div class="qh-pro-item-img">
+								<figure class="imageSquare_azes">
+									<img
+									
+                                                                                src="<%=image.get(0).getUrl1()%>"
+										alt="">
+								</figure>
+								<span class="muangay text-center">
+                                                                    <form name="form" action="<%=request.getContextPath()%>/AddProductServlet" method="post">
+                                                                        <button type="submit" class="btn btn-default">Thêm vào giỏ
+										hàng</button> <br>
+                                                                                <input type="text" value="<%=productses.get(i).getId()%>" name="idProduct" style="display: none">
+                                                                                <input type="text" name="amount" placeholder="Input amount">
+                                                                    </form>
+	1								<button href="#" class="btn btn-default">Xem chi tiết</button>
+									<br>
+									<button href="#" class="btn btn-default showmenu">Xem
+										nhanh</button>
+								</span>
+							</div>
+							<div class="qh-pro-item-info">
+								<h3 class="headingMedium_1SxM">
+									<span class="truncateMedium_3wDG"><%=productses.get(i).getName()%></span>
+								</h3>
+								<div class="qh-pro-price">
+									<strong><%=productses.get(i).getPrice()%></strong> <span class="old_3Sis">550,000
+										Đ</span>
+								</div>
+								<div class="qh-pro-item-view">
+									<div class="qh-pro-item-star">
+										<i class="fa fa-star" aria-hidden="true"></i> <i
+											class="fa fa-star" aria-hidden="true"></i> <i
+											class="fa fa-star" aria-hidden="true"></i> <i
+											class="fa fa-star" aria-hidden="true"></i> <i
+											class="fa fa-star" aria-hidden="true"></i>
+									</div>
+									<span class="ratingTotal_3cVd">(3)</span>
+									<div class="qh-tag-pro">
+										<i class="fa fa-tag" aria-hidden="true"></i> <span>23</span>
+									</div>
+								</div>
+								<div class="shopInfo_2NiQ ">
+<!--									<span class="name_3ozm">
+										<div class="showmenu">Thêm vào giỏ hàng</div>
+									</span> <span class="promotion_2XjF"></span>-->
+                                                                <form name="form" action="<%=request.getContextPath()%>/AddProductServlet" method="post">
+                                                                        <button type="submit" class="btn">Thêm vào giỏ
+										hàng</button> <br>
+                                                                                <input type="text" value="<%=productses.get(i).getId()%>" name="idProduct" style="display: none">
+                                                                                <label> Nhập vào số lượng </label>
+                                                                                <input type="text" name="amount" placeholder="Input amount" value="1">
+                                                                </form>
+								</div>
+
+								<div class="shopInfo_2NiQ hidden-lg hidden-md">
+									<div class="b-l">
+										<span href="" class="btn btn-default">Thêm giỏ hàng</span>
+									</div>
+									<div class="b-r">
+										<span href="#" class="btn btn-default showmenu">Xem
+											nhanh</span>
+									</div>
+								</div>
+							</div>
+						<!--</a>-->
+					</div>
+				</div>
+          
+           
+
+            <% 
+                    }
+                }
+                if (count == 0) {
+            %>
+            <tr>
+                <td colspan=4 align="center"
+                    style="background-color:#eeffee"><b>No Record Found..</b></td>
+            </tr>
+                             </div>
+            </div>
+           
+            <%            }
+            %>
+       
+            
+            
 	<div class="slide">
 		<div class="container">
 			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" id="listShow" style="display: none; position: absolute; z-index: 1">
 					<div class="bg-pro">
 						<div class="list-product">
 							<div class="list">

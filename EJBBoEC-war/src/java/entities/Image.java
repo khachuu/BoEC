@@ -43,7 +43,15 @@ public class Image implements Serializable {
     @Lob
     @Column(name = "Url")
     private byte[] url;
+    private String url1;
 
+    public String getUrl1() {
+        return url1;
+    }
+
+    public void setUrl1(String url1) {
+        this.url1 = url1;
+    }
     public Image() {
     }
 

@@ -14,7 +14,7 @@
 <script
 	src="js/jquery-3.1.1.min.js"></script>
 
-<script src="js/boec/client/register.js"></script>
+<script src="js/boec/client/register1.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="css/font-awesome.min.css" />"
 <link rel="stylesheet" type="text/css"
@@ -94,7 +94,7 @@
 							<div class="row">
 								<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
 									<div class="logo-head">
-										<a href="/serverptit"><img src="resources/imgs/lhk.png"
+										<a href="/serverptit"><img src="imgs/lhk.png"
 											alt=""></a>
 									</div>
 								</div>
@@ -374,7 +374,7 @@
 				<div class="row">
 					<div class="col-xs-2 col-sm-2">
 						<div class="logo-xs">
-							<a href="#"><img src="resources/imgs/logo-trang.png" alt=""></a>
+							<a href="#"><img src="imgs/logo-trang.png" alt=""></a>
 						</div>
 					</div>
 					<div class="col-xs-9 col-sm-9">
@@ -407,58 +407,109 @@
 		<div class="container">
 			<div class="content-custom">
 				<h1>Chào mừng bạn đến với LHK Market</h1>
-				<form:form method="POST" action="${actionUrl}"
+				<form method="POST" action="<%=request.getContextPath()%>/RegisterServlet"
 					modelAttribute="registerForm" name="registerForm">
 					<div class="row">
 						<div>
-							<div class="form-group">
-								<form:label path="customer">Fistname: </form:label>
-								<input type="text" path="customer" class="form-control"
-									id="firstname" name="firstname" />
-								<form:errors path="customer" cssClass="error" />
-							</div>
-							<div class="form-group">
-								<form:label path="customer">Lastname:</form:label>
-								<input type="text" class="form-control" id="lastname"
-									path="customer" name="lastname" />
-								<form:errors path="customer" cssClass="error" />
-							</div>
-
-
-							<div class="form-group">
-								<form:label path="city">Address:</form:label>
-								<input type="text" path="city" class="form-control"
-									id="city" name="city" />
-								<form:errors path="city" cssClass="error" />
-							</div>
-							<div class="form-group">
-								<form:label path="customer">Email: </form:label>
-								<input type="text" path="customer" class="form-control"
-									id="email" name="email" />
-								<form:errors path="customer" cssClass="error" />
-							</div>
-							<div class="form-group">
+                                                    	<div class="form-group">
 								<form:label path="customer">Username: </form:label>
 								<input type="text" path="customer" class="form-control"
-									id="username" name="username" />
+									id="username" name="username" required="true" />
 								<form:errors path="customer" cssClass="error" />
 							</div>
 							<div class="form-group">
 								<form:label path="customer">Password: </form:label>
 								<input type="password" path="customer" class="form-control"
-									id="password" name="password" />
+									id="password" name="password" required="true"/>
+								<form:errors path="customer" cssClass="error" />
+							</div>
+							<div class="form-group">
+								<form:label path="customer">Fistname: </form:label>
+								<input type="text" path="customer" class="form-control"
+                                                                       id="firstname" name="firstname" required="true" />
+								<form:errors path="customer" cssClass="error" />
+							</div>
+							<div class="form-group">
+								<form:label path="customer">Lastname:</form:label>
+								<input type="text" class="form-control" id="lastname"
+									path="customer" name="lastname" required="true" />
+								<form:errors path="customer" cssClass="error" />
+							</div>
+							
+						
+                                                        <div class="form-group">
+								<form:label path="customer">Email: </form:label>
+                                                                <input type="email" path="customer" class="form-control"
+									id="email" name="email" />
+								<form:errors path="customer" cssClass="error" />
+							</div>
+                                                        <div class="form-group">
+								<form:label path="address">Address:</form:label>
+								<input type="text" path="city" class="form-control"
+									id="address" name="address" />
+								<form:errors path="city" cssClass="error" />
+							</div>
+                                                        <div class="form-group">
+								<form:label path="customer">Phone: </form:label>
+								<input type="text" path="customer" class="form-control"
+									id="phone" name="phone" />
 								<form:errors path="customer" cssClass="error" />
 							</div>
 						</div>
 						<div class="button-login">
-							<form:button type="submit" id="btnRegister" class="btn btn-login">Đăng
-							ký</form:button>
+							<button type="submit" id="btnRegister" class="btn btn-login">Đăng
+							ký<button>
 						</div>
 
 					</div>
-				</form:form>
+				</form>
 				
 			</div>
 		</div>
 	</div>
+        <script>
+        $(document).ready(function() {
+
+//	$('#btnRegister').click(function(event) {
+//		event.preventDefault();
+//		var x = $("#firstname").val();
+//		var y = $("#lastname").val();
+//		var z = $("#email").val()
+//		var t = $("#addresss").val()
+//                var phone = $("#phone").val()
+//		var t1 = $("#username").val()
+//		var t2 = $("#password").val()
+//		var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+//
+//		if (x === null || x === "" || x.length <= 0) {
+//			alert("Please fill firstname!!");
+//			return false;
+//		} else if (y === null || y === "") {
+//			alert("Please fill lastname!!");
+//			return false;
+//                } else if (phone === null || phone === "") {
+//			alert("Please fill phone!!");
+//		        return false;
+//		} else if (z === null || z === "") {
+//			alert("Please fill email!!");
+//			return false;
+//		} else if (!filter.test(z)) {
+//			alert('Please fill correct email!!');
+//			z.focus;
+//			return false;
+//		} else if (t === null || t === "") {
+//			alert("Please fill address!!");
+//			return false;
+//		} else if (t1 === null || 1 === "") {
+//			alert("Please fill username!!");
+//			return false;
+//		} else if (t2 === null || t2 === "") {
+//			alert("Please fill password!!");
+//			return false;
+//		} 
+//		
+////		save();
+//	});
+        }); 
+        </script>
 	<%@ include file="/footer.jsp"%>

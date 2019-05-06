@@ -1,12 +1,14 @@
 package controller;
+import dao_impl.CustomerDaoImpl;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import dao.LoginDao;
+import dao_impl.LoginDaoImpl;
 import entities.Account;
+import singleton.SingleAccount;
 public class LoginServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
   public LoginServlet() {
@@ -18,12 +20,13 @@ public class LoginServlet extends HttpServlet {
 //    LoginBean loginBean = new LoginBean();
 //    loginBean.setUserName(userName);
 //    loginBean.setPassword(password);
-
-    Account account = new Account();
+      CustomerDaoImpl customerDaoImpl = new CustomerDaoImpl();
+//    Account account = new Account();
+    SingleAccount account = SingleAccount.getInstance();
     account.setUsername(userName);
     account.setPassword(password);
-    LoginDao loginDao = new LoginDao();
-
+    LoginDaoImpl loginDao = new LoginDaoImpl();
+    HttpSession session = request.getSession();
     try
     {
       String userValidate = loginDao.authenticateUser(account);
@@ -31,7 +34,7 @@ public class LoginServlet extends HttpServlet {
       if(userValidate.equals("Admin_Role"))
       {
         System.out.println("Admin's Home");
-        HttpSession session = request.getSession(); //Creating a session
+
         session.setAttribute("userName", userName); //setting session attribute userName
         session.setAttribute("role", userValidate); //setting session attribute role
         request.setAttribute("userName", userName);
@@ -41,17 +44,24 @@ public class LoginServlet extends HttpServlet {
       else if(userValidate.equals("User_Role"))
       {
         System.out.println("User's Home");
-        HttpSession session = request.getSession();
+        int idCustomer = customerDaoImpl.getCustomerByName(userName).getId();
+
 //        session.setMaxInactiveInterval(10*60);
+        int id = 0;
         session.setAttribute("userName", userName); //setting session attribute userName
+        session.setAttribute("idCart", id);
+        session.setAttribute("idCustomer", idCustomer);
+        
         session.setAttribute("role", userValidate); //setting session attribute role
         request.setAttribute("userName", userName);
+        session.setAttribute("ModeLogin","Đăng Xuất");
         request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
       }
       else
       {
         System.out.println("Error message = "+userValidate);
         request.setAttribute("errMessage", userValidate);
+        session.setAttribute("ModeLogin","Đăng Nhập");
         request.getRequestDispatcher("index.jsp").forward(request, response);
       }
     }

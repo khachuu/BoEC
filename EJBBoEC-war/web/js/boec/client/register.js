@@ -5,7 +5,8 @@ $(document).ready(function() {
 		var x = $("#firstname").val();
 		var y = $("#lastname").val();
 		var z = $("#email").val()
-		var t = $("#city").val()
+		var t = $("#addresss").val()
+                var phone = $("#phone").val()
 		var t1 = $("#username").val()
 		var t2 = $("#password").val()
 		var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -16,6 +17,9 @@ $(document).ready(function() {
 		} else if (y === null || y === "") {
 			alert("Please fill lastname!!");
 			return false;
+                } else if (phone === null || phone === "") {
+			alert("Please fill phone!!");
+		return false;
 		} else if (z === null || z === "") {
 			alert("Please fill email!!");
 			return false;
@@ -34,47 +38,9 @@ $(document).ready(function() {
 			return false;
 		} 
 		
-		save();
+//		save();
 	});
 
-	function save() {
-		var cus = {
-			customer : {
-				account : {
-					username : $("#username").val(),
-					password : $("#password").val()
-				},
-				account_roles : {
-					username : $("#username").val(),
-				},
-				fullname : {
-					firstname : $("#firstname").val(),
-					lastname : $("#lastname").val()
-				},
-				email : $("#email").val(),
-			},
-			city : $("#city").val()
 
-		};
-
-		$.ajax({
-			type : "POST",
-			contentType : "application/json",
-			url : "./register/api/v1/",
-			data : JSON.stringify(cus),
-			dataType : "json",
-			success : function(data) {
-				alert("Save Done!");
-				window.location.href = "./login";
-				console.log("Save Done !!: ", data);
-			},
-			error : function(event) {
-				alert("Save Fail !!");
-				console.log("Save Fail !!: ", event);
-			},done : function(e) {
-				console.log("DONE");
-			}
-		});
-	}
 
 });
